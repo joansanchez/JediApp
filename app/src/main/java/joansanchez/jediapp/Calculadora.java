@@ -210,6 +210,14 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                     setText(result2);
                 }
                 break;
+            case R.id.bphone:
+                Intent i =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+result1));
+                startActivity(i);
+                break;
+            case R.id.bbrowse:
+                Intent i2 =  new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.es/search?q="+result1));
+                startActivity(i2);
+                break;
         }
     }
 }
