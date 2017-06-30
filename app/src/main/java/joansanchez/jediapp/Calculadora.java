@@ -8,13 +8,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class Calculadora extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "CALCULADORA";
     Button but1, but2, but3, but4, but5, but6, but7, but8, but9, but0;
-    Button butadd, butless, butmult, butdiv, butans, butdec, butbrow, butphone, butequ;
+    Button butadd, butless, butmult, butdiv, butans, butdec, butequ;
     TextView texto;
     private String result1, result2, result;
     private int op1, operand;
@@ -22,7 +23,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     private void setText(String text){
         texto.setText(text);
     }
-
+    ImageButton butbrow, butphone;
     private String calcularexpre(String result1, int op, String result2){
         double a, b, c;
         a = Double.valueOf(result1);
@@ -66,8 +67,8 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         butdiv = (Button) findViewById(R.id.bdiv);
         butans = (Button) findViewById(R.id.bans);
         butdec = (Button) findViewById(R.id.bdec);
-        butbrow = (Button) findViewById(R.id.bbrowse);
-        butphone = (Button) findViewById(R.id.bphone);
+        butbrow = (ImageButton) findViewById(R.id.bbrowse);
+        butphone = (ImageButton) findViewById(R.id.bphone);
         butequ = (Button) findViewById(R.id.bequ);
         texto = (TextView) findViewById(R.id.pantalla);
 
@@ -92,6 +93,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         butphone.setOnClickListener(this);
         butequ.setOnClickListener(this);
         iniciop1 = iniciop2 = true;
+        result1 = "0";
     }
 
     public void onClick(View v) {
@@ -158,6 +160,26 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 }
 
                 break;
+            case R.id.b0:
+                Log.v(TAG, "Soy el Button 0");
+                if(op1 != 1){
+                    if (iniciop1) {
+                        result1 = "0";
+                        iniciop1 = false;
+                    }
+                    else result1 += "0";
+                    setText(result1);
+                }
+                else{
+                    if (iniciop2){
+                        result2 = "0";
+                        iniciop2 = false;
+                    }
+                    else result2 += "0";
+                    setText(result2);
+                }
+
+                break;
 
             case R.id.bmas:
                 Log.v(TAG, "Soy el Button mas");
@@ -196,7 +218,8 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 result = calcularexpre(result1, operand, result2);
                 setText(result);
                 op1 = 0;
-                result1 = result2 = "";
+                result1 = result;
+                result2 = "";
                 iniciop1 = true;
                 break;
             case R.id.bans:
