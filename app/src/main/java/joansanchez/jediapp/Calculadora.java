@@ -17,9 +17,9 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
     Button but1, but2, but3, but4, but5, but6, but7, but8, but9, but0;
     Button butadd, butless, butmult, butdiv, butans, butdec, butequ;
     TextView texto;
-    private String result1, result2, result;
-    private int op1, operand;
-    private Boolean iniciop1, iniciop2;
+    private String result1, result2, result; //eresult1 guarda operando1, result2, el 2 y result el final
+    private int op1, operand; //op1 sirve para saber si estamos en el primer operando o en el segundo y operand es el signo de la operación
+    private Boolean iniciop1, iniciop2; //Sirve para saber si es el primer número que se inserta del operando
     private void setText(String text){
         texto.setText(text);
     }
@@ -28,7 +28,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         double a, b, c;
         a = Double.valueOf(result1);
         b = Double.valueOf(result2);
-        c = 0;
+        c = 0; //el caso 4 es el comodín que indica que no se ha usado en esta operación
         switch (op){
             case 0:
                 c = a + b;
@@ -93,6 +93,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         butphone.setOnClickListener(this);
         butequ.setOnClickListener(this);
         iniciop1 = iniciop2 = true;
+        operand = 4;
         result1 = "0";
     }
 
@@ -221,6 +222,7 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 result1 = result;
                 result2 = "";
                 iniciop1 = true;
+                operand = 4;
                 break;
             case R.id.bans:
                 Log.v(TAG, "Soy el Button ans");
@@ -242,5 +244,33 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 startActivity(i2);
                 break;
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.v(TAG,"Se ha llamado onSaveInstanceState");
+        outState.putInt("op1", op1);
+        outState.putInt("operand", operand);
+        outState.putBoolean("inicioop1", iniciop1);
+        outState.putBoolean("inicioop2", iniciop2);
+        outState.putString("result1", result1);
+        if (op1 == 1) outState.putString("result2", result2);
+        outState.putString("result", result);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.v(TAG,"Se ha llamado onRestore");
+        result = savedInstanceState.getString("result");
+        result1 = savedInstanceState.getString("result1");
+        op1 = savedInstanceState.getInt("op1");
+        if (op1 == 1) result2 = savedInstanceState.getString("result2");
+        iniciop1 = savedInstanceState.getBoolean("inicioop1");
+        iniciop2 = savedInstanceState.getBoolean("inicioop2");
+        operand = savedInstanceState.getInt("operand");
+        Log.v(TAG,"El valor del operand es "+String.valueOf(operand));
+        if(op1 == 0 && operand == 4) setText(result1);
     }
 }
