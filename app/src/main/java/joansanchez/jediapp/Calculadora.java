@@ -161,6 +161,26 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 }
 
                 break;
+            case R.id.b4:
+                Log.v(TAG, "Soy el Button 4");
+                if(op1 != 1){
+                    if (iniciop1) {
+                        result1 = "4";
+                        iniciop1 = false;
+                    }
+                    else result1 += "4";
+                    setText(result1);
+                }
+                else{
+                    if (iniciop2){
+                        result2 = "4";
+                        iniciop2 = false;
+                    }
+                    else result2 += "4";
+                    setText(result2);
+                }
+
+                break;
             case R.id.b0:
                 Log.v(TAG, "Soy el Button 0");
                 if(op1 != 1){
