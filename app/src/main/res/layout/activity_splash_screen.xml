@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_orange_dark"
-    tools:context="joansanchez.jediapp.SplashScreen"
-    android:weightSum="1">
+    android:background="@android:color/background_light"
+    tools:context="joansanchez.jediapp.SplashScreen">
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
+        android:layout_width="124dp"
         android:layout_height="124dp"
-        android:layout_weight="0.4"
-        android:src="@drawable/ic_toys_black_24dp" />
+        android:src="@drawable/ic_physics"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
-</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        android:text="@string/app_name"
+        android:textSize="38dp"
+        android:textStyle="bold"
+        tools:fontFamily="sans-serif"
+        android:layout_below="@+id/imageView3"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

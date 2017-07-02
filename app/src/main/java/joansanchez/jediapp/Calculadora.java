@@ -179,6 +179,105 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                     else result2 += "4";
                     setText(result2);
                 }
+                break;
+            case R.id.b5:
+                Log.v(TAG, "Soy el Button 5");
+                if(op1 != 1){
+                    if (iniciop1) {
+                        result1 = "5";
+                        iniciop1 = false;
+                    }
+                    else result1 += "5";
+                    setText(result1);
+                }
+                else{
+                    if (iniciop2){
+                        result2 = "5";
+                        iniciop2 = false;
+                    }
+                    else result2 += "5";
+                    setText(result2);
+                }
+
+                break;
+            case R.id.b6:
+                Log.v(TAG, "Soy el Button 6");
+                if(op1 != 1){
+                    if (iniciop1) {
+                        result1 = "6";
+                        iniciop1 = false;
+                    }
+                    else result1 += "6";
+                    setText(result1);
+                }
+                else{
+                    if (iniciop2){
+                        result2 = "6";
+                        iniciop2 = false;
+                    }
+                    else result2 += "6";
+                    setText(result2);
+                }
+
+                break;
+            case R.id.b7:
+                Log.v(TAG, "Soy el Button 7");
+                if(op1 != 1){
+                    if (iniciop1) {
+                        result1 = "7";
+                        iniciop1 = false;
+                    }
+                    else result1 += "7";
+                    setText(result1);
+                }
+                else{
+                    if (iniciop2){
+                        result2 = "7";
+                        iniciop2 = false;
+                    }
+                    else result2 += "7";
+                    setText(result2);
+                }
+
+                break;
+            case R.id.b8:
+                Log.v(TAG, "Soy el Button 8");
+                if(op1 != 1){
+                    if (iniciop1) {
+                        result1 = "8";
+                        iniciop1 = false;
+                    }
+                    else result1 += "8";
+                    setText(result1);
+                }
+                else{
+                    if (iniciop2){
+                        result2 = "8";
+                        iniciop2 = false;
+                    }
+                    else result2 += "8";
+                    setText(result2);
+                }
+
+                break;
+            case R.id.b9:
+                Log.v(TAG, "Soy el Button 9");
+                if(op1 != 1){
+                    if (iniciop1) {
+                        result1 = "9";
+                        iniciop1 = false;
+                    }
+                    else result1 += "9";
+                    setText(result1);
+                }
+                else{
+                    if (iniciop2){
+                        result2 = "9";
+                        iniciop2 = false;
+                    }
+                    else result2 += "9";
+                    setText(result2);
+                }
 
                 break;
             case R.id.b0:
@@ -262,6 +361,25 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
             case R.id.bbrowse:
                 Intent i2 =  new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.es/search?q="+result1));
                 startActivity(i2);
+                break;
+            case R.id.bdec:
+                Log.v(TAG, "Soy el Button decimal");
+                if(op1 != 1){
+                    if (iniciop1) {
+                        result1 = "0.";
+                        iniciop1 = false;
+                    }
+                    else result1 += ".";
+                    setText(result1);
+                }
+                else{
+                    if (iniciop2){
+                        result2 = "0.";
+                        iniciop2 = false;
+                    }
+                    else result2 += ".";
+                    setText(result2);
+                }
                 break;
         }
     }
