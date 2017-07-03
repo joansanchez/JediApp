@@ -13,6 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import joansanchez.jediapp.fragments.CalculadoraF;
+import joansanchez.jediapp.fragments.Juego;
+import joansanchez.jediapp.fragments.MainScreen;
+import joansanchez.jediapp.fragments.Profile;
+import joansanchez.jediapp.fragments.Ranking;
+
 
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -78,10 +84,16 @@ public class DrawerActivity extends AppCompatActivity
 
         Fragment f = null;
         navigationView.setCheckedItem(id);
-        if (id == R.id.nav_gallery) {
-            f = new GalleryFragment();
-        } else if (id == R.id.nav_slideshow) {
-            f = new SlideShowFragment();
+        if (id == R.id.nav_MainScreen) {
+            f = new MainScreen();
+        } else if (id == R.id.nav_juego) {
+            f = new Juego();
+        } else if (id == R.id.nav_ranquing) {
+            f = new Ranking();
+        } else if (id == R.id.nav_perfil) {
+            f = new Profile();
+        } else if (id == R.id.nav_calculadora) {
+            f = new CalculadoraF();
         }
 
         if(f != null){

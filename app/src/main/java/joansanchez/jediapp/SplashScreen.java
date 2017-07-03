@@ -22,7 +22,7 @@ public class SplashScreen extends AppCompatActivity {
         rotateAnimation.setDuration(2000);
         rotateAnimation.setInterpolator(new LinearInterpolator());
         imgag.startAnimation(rotateAnimation);
-        final Intent i = new Intent(this, Calculadora.class);
+        final Intent i = new Intent(this, DrawerActivity.class);
         Runnable r = new Runnable() {
             @Override
             public void run() {
