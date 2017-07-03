@@ -7,15 +7,22 @@
     android:orientation="vertical"
     tools:context="joansanchez.jediapp.Calculadora">
 
-
-    <TextView
-        android:id="@+id/pantalla"
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="0"
-        android:textAlignment="textEnd"
-        android:textSize="70dp" />
+
+        >
+        <TextView
+            android:id="@+id/pantalla"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="0"
+            android:textAlignment="textEnd"
+            android:textSize="70dp"
+            android:layout_gravity="right"/>
+    </HorizontalScrollView>
+
 
 
 

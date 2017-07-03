@@ -2,6 +2,7 @@ package joansanchez.jediapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -95,6 +96,14 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
         iniciop1 = iniciop2 = true;
         operand = 4;
         result1 = "0";
+        result = "00";
+
+        int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            texto.setTextSize(70);
+        } else {
+            texto.setTextSize(50);
+        }
     }
 
     public void onClick(View v) {
@@ -335,13 +344,19 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
 
             case R.id.bequ:
                 Log.v(TAG, "Soy el Button =");
-                result = calcularexpre(result1, operand, result2);
+                if (!iniciop2) result = calcularexpre(result1, operand, result2);
+                //else result = result1;
                 setText(result);
                 op1 = 0;
                 result1 = result;
                 result2 = "";
-                iniciop1 = true;
+                result = "00";
+                iniciop1 = iniciop2 = true;
+
                 operand = 4;
+                Log.v(TAG, "res1 "+result1);
+                Log.v(TAG, "res2 "+result2);
+                Log.v(TAG, "res "+result);
                 break;
             case R.id.bans:
                 Log.v(TAG, "Soy el Button ans");
@@ -359,8 +374,15 @@ public class Calculadora extends AppCompatActivity implements View.OnClickListen
                 startActivity(i);
                 break;
             case R.id.bbrowse:
-                Intent i2 =  new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.es/search?q="+result1));
-                startActivity(i2);
+                Intent i2;
+                if (result != "00") {
+                    i2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.es/search?q=" + result1));
+                    startActivity(i2);
+                }
+                else{
+                    i2 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://lmgtfy.com/?q=qu%C3%A9+hago+en+julio+haciendo+un+curso" ));
+                    startActivity(i2);
+                }
                 break;
             case R.id.bdec:
                 Log.v(TAG, "Soy el Button decimal");
