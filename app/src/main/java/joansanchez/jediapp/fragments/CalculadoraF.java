@@ -114,13 +114,19 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
         result1 = "0";
         result = "00";
 
-        int orientation = this.getResources().getConfiguration().orientation;
+
+        return rootView;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        int orientation = getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             texto.setTextSize(70);
         } else {
-            texto.setTextSize(50);
+            texto.setTextSize(40);
         }
-        return rootView;
     }
 
     @Override
@@ -424,22 +430,5 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
         }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.v(TAG,"Se ha llamado onSaveInstanceState");
-        outState.putInt("op1", op1);
-        outState.putInt("operand", operand);
-        outState.putBoolean("inicioop1", iniciop1);
-        outState.putBoolean("inicioop2", iniciop2);
-        outState.putString("result1", result1);
-        if (op1 == 1) outState.putString("result2", result2);
-        outState.putString("result", result);
-    }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
 }
