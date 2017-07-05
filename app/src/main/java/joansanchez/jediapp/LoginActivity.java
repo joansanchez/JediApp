@@ -1,5 +1,8 @@
 package joansanchez.jediapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +20,8 @@ public class LoginActivity extends AppCompatActivity  {
     private TextView user;
     private TextView pass;
     private Button login, register;
+    private String u, p;
+    SharedPreferences sp;
 
     private final String TAG = "LoginActivity";
 
@@ -32,14 +37,23 @@ public class LoginActivity extends AppCompatActivity  {
         login = (Button) findViewById(R.id.login);
         register = (Button) findViewById(R.id.button);
 
+
         myDataBaseHelper = MyDataBaseHelper.getInstance(this);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String u = user.getText().toString();
-                String p = pass.getText().toString();
+                u = user.getText().toString();
+                p = pass.getText().toString();
+                sp = getSharedPreferences("APP", Context.MODE_PRIVATE);
                 if (u.length() != 0 && p.length() != 0){
                     long id = myDataBaseHelper.createRow(u, p);
+                    if (id != -1) {
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("currentUser", u);
+                        editor.apply();
+                        String actual = sp.getString("currentUser",null);
+                        Log.v(TAG, actual);
+                    }
                     Log.v(TAG, ""+id);
                 }
                 else Log.v(TAG, "introduce usuario y pass");
