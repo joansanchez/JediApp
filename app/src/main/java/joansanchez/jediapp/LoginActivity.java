@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity  {
     SharedPreferences sp;
 
     private final String TAG = "LoginActivity";
-
     private MyDataBaseHelper myDataBaseHelper;
 
     @Override
@@ -39,20 +38,21 @@ public class LoginActivity extends AppCompatActivity  {
 
 
         myDataBaseHelper = MyDataBaseHelper.getInstance(this);
+        sp = getSharedPreferences("APP", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sp.edit();
+        final Intent i = new Intent(this, DrawerActivity.class);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 u = user.getText().toString();
                 p = pass.getText().toString();
-                sp = getSharedPreferences("APP", Context.MODE_PRIVATE);
+
                 if (u.length() != 0 && p.length() != 0){
                     long id = myDataBaseHelper.createRow(u, p);
                     if (id != -1) {
-                        SharedPreferences.Editor editor = sp.edit();
                         editor.putString("currentUser", u);
                         editor.apply();
-                        String actual = sp.getString("currentUser",null);
-                        Log.v(TAG, actual);
+                        startActivity(i);
                     }
                     Log.v(TAG, ""+id);
                 }
@@ -62,8 +62,23 @@ public class LoginActivity extends AppCompatActivity  {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                u = user.getText().toString();
+                p = pass.getText().toString();
+                if (u.length() != 0 && p.length() != 0){
+                    long id = myDataBaseHelper.query(u, p);
+                    if (id != -1) {
+                        editor.putString("currentUser", u);
+                        editor.apply();
+                        String actual = sp.getString("currentUser",null);
+                        Log.v(TAG, actual);
+                        startActivity(i);
+                    }
+                    //enviar a la pantalla de error
+                    Log.v(TAG, ""+id);
+                }
+                else Log.v(TAG, "introduce usuario y pass");
+                }
 
-            }
         });
     }
 }

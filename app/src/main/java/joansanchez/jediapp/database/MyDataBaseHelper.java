@@ -2,6 +2,7 @@ package joansanchez.jediapp.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -13,7 +14,7 @@ import android.util.Log;
 public class MyDataBaseHelper extends SQLiteOpenHelper{
     private final String TAG = "MyDataBaseHelper";
 
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "MyDataBase.db";
 
     private static final String SQL_CREATE_TABLE1 =
@@ -73,6 +74,29 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
         values.put(MyDataBaseContract.Table1.COLUMN_PASS,p);
         long newId = writable.insert(MyDataBaseContract.Table1.TABLE_NAME,null,values);
         return newId;
+    }
+
+    public long query(String u, String p) {
+        Cursor c;
+        c = readable.query(MyDataBaseContract.Table1.TABLE_NAME,
+                new String[] {MyDataBaseContract.Table1.COLUMN_PASS},
+                MyDataBaseContract.Table1.COLUMN_USER + " = '" +u + "'",
+                null,
+                null,
+                null,
+                null);
+        long retvalue = -1;
+        if (c.moveToFirst()) {
+            do {
+                Log.v(TAG, "entra");
+                //We go here if the cursor is not empty
+                String l = c.getString(c.getColumnIndex(MyDataBaseContract.Table1.COLUMN_PASS));
+                if (l == p) retvalue = 1;
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return retvalue;
     }
 }
 
