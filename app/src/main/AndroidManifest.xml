@@ -11,7 +11,7 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".Calculadora"
-            android:theme="@style/AppTheme.noactionbar"></activity>
+            android:theme="@style/AppTheme.noactionbar" />
         <activity
             android:name=".SplashScreen"
             android:theme="@style/AppTheme.noactionbar">
@@ -22,10 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DrawerActivity"
-            android:theme="@style/AppTheme.noactionbar"
-            android:configChanges="screenSize|orientation"/>
-
+        <activity
+            android:name=".DrawerActivity"
+            android:configChanges="screenSize|orientation"
+            android:theme="@style/AppTheme.noactionbar" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".fragments.ErrorActivity"></activity>
     </application>
 
 </manifest>

@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -60,6 +62,11 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menucalc, menu);
     }
 
     @Override
@@ -114,7 +121,7 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
         result1 = "0";
         result = "00";
 
-
+        setHasOptionsMenu(true);
         return rootView;
     }
 

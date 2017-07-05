@@ -22,6 +22,10 @@
             android:id="@+id/nav_calculadora"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Calculadora" />
+        <item
+            android:id="@+id/nav_repreoductor"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Repreoductor" />
     </group>
 
     <item android:title="Communicate">

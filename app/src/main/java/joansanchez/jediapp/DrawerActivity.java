@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import joansanchez.jediapp.fragments.CalculadoraF;
 import joansanchez.jediapp.fragments.Juego;
 import joansanchez.jediapp.fragments.MainScreen;
+import joansanchez.jediapp.fragments.Music;
 import joansanchez.jediapp.fragments.Profile;
 import joansanchez.jediapp.fragments.Ranking;
 
@@ -70,7 +71,7 @@ public class DrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
             return true;
         }
 
@@ -94,6 +95,9 @@ public class DrawerActivity extends AppCompatActivity
             f = new Profile();
         } else if (id == R.id.nav_calculadora) {
             f = new CalculadoraF();
+        }
+        else if (id == R.id.nav_repreoductor) {
+            f = new Music();
         }
 
         if(f != null){
