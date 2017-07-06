@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_PASS;
+
 /**
  * Created by JoanPad on 05/07/2017.
  */
@@ -20,7 +22,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
     private static final String SQL_CREATE_TABLE1 =
             "CREATE TABLE " + MyDataBaseContract.Table1.TABLE_NAME + " (" +
                     MyDataBaseContract.Table1._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    MyDataBaseContract.Table1.COLUMN_USER + " TEXT UNIQUE, " + MyDataBaseContract.Table1.COLUMN_PASS + " TEXT, " +
+                    MyDataBaseContract.Table1.COLUMN_USER + " TEXT UNIQUE, " + COLUMN_PASS + " TEXT, " +
                     MyDataBaseContract.Table1.COLUMN_PHOTO + " TEXT, " + MyDataBaseContract.Table1.COLUMN_ADRESS + " TEXT )";
 
     private static final String SQL_DELETE_TABLE1 =
@@ -71,7 +73,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
     public long createRow(String u, String p) {
         ContentValues values = new ContentValues();
         values.put(MyDataBaseContract.Table1.COLUMN_USER,u);
-        values.put(MyDataBaseContract.Table1.COLUMN_PASS,p);
+        values.put(COLUMN_PASS,p);
         long newId = writable.insert(MyDataBaseContract.Table1.TABLE_NAME,null,values);
         return newId;
     }
@@ -79,9 +81,9 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
     public long query(String u, String p) {
         Cursor c;
         c = readable.query(MyDataBaseContract.Table1.TABLE_NAME,
-                new String[] {MyDataBaseContract.Table1.COLUMN_PASS},
-                MyDataBaseContract.Table1.COLUMN_USER + " = '" +u + "'",
-                null,
+                new String[] {COLUMN_PASS},
+                MyDataBaseContract.Table1.COLUMN_USER + " = ? AND " + COLUMN_PASS + " = ?",
+                new String[] {u, p},
                 null,
                 null,
                 null);
@@ -89,9 +91,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
         if (c.moveToFirst()) {
             do {
                 Log.v(TAG, "entra");
-                //We go here if the cursor is not empty
-                String l = c.getString(c.getColumnIndex(MyDataBaseContract.Table1.COLUMN_PASS));
-                if (l == p) retvalue = 1;
+                retvalue = 1;
             } while (c.moveToNext());
         }
         c.close();

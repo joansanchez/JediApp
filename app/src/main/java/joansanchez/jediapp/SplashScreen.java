@@ -1,6 +1,8 @@
 package joansanchez.jediapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.widget.DrawerLayout;
@@ -23,11 +25,15 @@ public class SplashScreen extends AppCompatActivity {
         rotateAnimation.setDuration(2000);
         rotateAnimation.setInterpolator(new LinearInterpolator());
         imgag.startAnimation(rotateAnimation);
-        final Intent i = new Intent(this, LoginActivity.class);
+        final Intent i = new Intent(this, DrawerActivity.class);
+        final Intent l = new Intent(this, LoginActivity.class);
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                startActivity(i);
+                SharedPreferences sp;
+                sp = getSharedPreferences("APP", Context.MODE_PRIVATE);
+                if (sp.getString("currentUser", null).length() != 0)startActivity(i);
+                else startActivity(l);
             }
         };
         Handler h = new Handler();

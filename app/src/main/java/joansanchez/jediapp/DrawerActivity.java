@@ -1,5 +1,8 @@
 package joansanchez.jediapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -72,6 +75,13 @@ public class DrawerActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
+            SharedPreferences sp;
+            sp = getSharedPreferences("APP", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("currentUser", null);
+            editor.apply();
+            final Intent l = new Intent(this, LoginActivity.class);
+            startActivity(l);
             return true;
         }
 
