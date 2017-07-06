@@ -32,7 +32,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 SharedPreferences sp;
                 sp = getSharedPreferences("APP", Context.MODE_PRIVATE);
-                if (sp.getString("currentUser", null).length() != 0)startActivity(i);
+                if (sp.getString("currentUser", "").length() != 0)startActivity(i);
                 else startActivity(l);
             }
         };

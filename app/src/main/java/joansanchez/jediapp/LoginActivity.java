@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import joansanchez.jediapp.database.MyDataBaseHelper;
+import joansanchez.jediapp.fragments.ErrorActivity;
 
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity  {
         sp = getSharedPreferences("APP", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sp.edit();
         final Intent i = new Intent(this, DrawerActivity.class);
+        final Intent e = new Intent(this, ErrorActivity.class);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,8 +75,7 @@ public class LoginActivity extends AppCompatActivity  {
                         Log.v(TAG, actual);
                         startActivity(i);
                     }
-                    //enviar a la pantalla de error
-                    Log.v(TAG, ""+id);
+                    else startActivity(e);
                 }
                 else Log.v(TAG, "introduce usuario y pass");
                 }
