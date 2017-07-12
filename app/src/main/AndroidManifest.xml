@@ -25,7 +25,8 @@
         <activity
             android:name=".DrawerActivity"
             android:configChanges="screenSize|orientation"
-            android:theme="@style/AppTheme.noactionbar" />
+            android:theme="@style/AppTheme.noactionbar"
+            />
         <activity android:name=".LoginActivity" />
         <activity android:name=".fragments.ErrorActivity"></activity>
     </application>

@@ -99,8 +99,9 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
 
         return retvalue;
     }
-    public long existe(String u){
+    public static long existe(String u){
         Cursor c;
+        String TAG = "MyDataBaseHelper";
         c = readable.query(MyDataBaseContract.Table1.TABLE_NAME,
                 new String[] {COLUMN_USER},
                 MyDataBaseContract.Table1.COLUMN_USER + " = ? ",
@@ -119,7 +120,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
 
         return retvalue;
     }
-    public long createRowGoogle(String u) {
+    public static long createRowGoogle(String u) {
         ContentValues values = new ContentValues();
         values.put(MyDataBaseContract.Table1.COLUMN_USER,u);
         long newId = writable.insert(MyDataBaseContract.Table1.TABLE_NAME,null,values);

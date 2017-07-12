@@ -8,6 +8,7 @@ import android.os.SystemClock;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -32,7 +33,11 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 SharedPreferences sp;
                 sp = getSharedPreferences("APP", Context.MODE_PRIVATE);
-                if (sp.getString("currentUser", "").length() != 0)startActivity(i);
+                String actual = sp.getString("currentUser","ninguno");
+                Log.v("splashscreen123", actual);
+                if (sp.getString("currentUser", "").length() != 0){
+                    startActivity(i);
+                }
                 else startActivity(l);
             }
         };

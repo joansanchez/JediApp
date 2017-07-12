@@ -36,18 +36,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private TextView user;
     private TextView pass;
-    private Button login, register;
+    private Button login ;
+    private Button register;
     private String u, p;
+    //Shared preferences
     SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
-
-    private final String TAG = "LoginActivity";
+    private final String TAG = "LoginActivity123";
     private MyDataBaseHelper myDataBaseHelper;
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
     private SignInButton mSignInButton;
-    final Intent i = new Intent(this, DrawerActivity.class);
-    final Intent e =  new Intent(this, ErrorActivity.class);
+    Intent i;
+    Intent e;
 
     public LoginActivity() {
     }
@@ -59,51 +61,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         user = (TextView) findViewById(R.id.editText);
         pass = (TextView) findViewById(R.id.editText2);
         login = (Button) findViewById(R.id.login);
+        login.setOnClickListener(this);
         register = (Button) findViewById(R.id.button);
+        register.setOnClickListener(this);
         initGoogleLogin();
         initUIComponents();
         myDataBaseHelper = MyDataBaseHelper.getInstance(this);
         sp = getSharedPreferences("APP", Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sp.edit();
+        editor = sp.edit();
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                u = user.getText().toString();
-                p = pass.getText().toString();
 
-                if (u.length() != 0 && p.length() != 0){
-                    long id = myDataBaseHelper.createRow(u, p);
-                    if (id != -1) {
-                        editor.putString("currentUser", u);
-                        editor.apply();
-                        startActivity(i);
-                    }
-                    Log.v(TAG, ""+id);
-                }
-                else Log.v(TAG, "introduce usuario y pass");
-            }
-        });
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                u = user.getText().toString();
-                p = pass.getText().toString();
-                if (u.length() != 0 && p.length() != 0){
-                    long id = myDataBaseHelper.query(u, p);
-                    if (id != -1) {
-                        editor.putString("currentUser", u);
-                        editor.apply();
-                        String actual = sp.getString("currentUser",null);
-                        Log.v(TAG, actual);
-                        startActivity(i);
-                    }
-                    else startActivity(e);
-                }
-                else Log.v(TAG, "introduce usuario y pass");
-                }
-
-        });
     }
 
     private void initGoogleLogin() {
@@ -125,12 +92,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-    }
+    } //se conecta con google y inicializa la api
 
     private void initUIComponents(){
         mSignInButton = (SignInButton) findViewById(R.id.googlebutton);
         mSignInButton.setOnClickListener(this);
-    }
+    } //inicializa el botón de google sign in
 
     @Override
     public void onClick(View v) {
@@ -138,7 +105,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.googlebutton:
                 signInGoogle();
                 break;
+            case R.id.button: //botón registro
+                u = user.getText().toString();
+                p = pass.getText().toString();
+
+                if (u.length() != 0 && p.length() != 0){
+                    long id = myDataBaseHelper.createRow(u, p);
+                    if (id != -1) {
+                        editor.putString("currentUser", u);
+                        editor.apply();
+                        i = new Intent(this, DrawerActivity.class);
+                        startActivity(i);
+                    }
+                    Log.v(TAG, ""+id);
+                }
+                else Log.v(TAG, "introduce usuario y pass");
+                break;
+            case R.id.login:
+                u = user.getText().toString();
+                p = pass.getText().toString();
+                if (u.length() != 0 && p.length() != 0){
+                    long id = myDataBaseHelper.query(u, p);
+                    if (id != -1) {
+                        editor.putString("currentUser", u);
+                        editor.apply();
+                        i = new Intent(this, DrawerActivity.class);
+                        startActivity(i);
+                    }
+                    else {
+                        e =  new Intent(this, ErrorActivity.class);
+                        startActivity(e);
+                    }
+                }
+                else Log.v(TAG, "introduce usuario y pass");
+                break;
         }
+        String actual = sp.getString("currentUser","no user");
+        Log.v(TAG, actual);
     }
 
     private void signInGoogle() {
@@ -162,7 +165,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            acct.getEmail();
+            String user = acct.getEmail();
+            Log.v(TAG, user);
+            if (MyDataBaseHelper.existe(user) != -1){
+                editor.putString("currentUser", user);
+                editor.apply();
+                i = new Intent(this, DrawerActivity.class);
+                startActivity(i);
+            }
+            else{
+                long id = MyDataBaseHelper.createRowGoogle(user);
+                if (id != -1) {
+                    editor.putString("currentUser", user);
+                    editor.apply();
+                    i = new Intent(this, DrawerActivity.class);
+                    startActivity(i);
+                }
+            }
         } else {
             // Signed out, show unauthenticated UI.
         }
