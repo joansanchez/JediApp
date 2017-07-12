@@ -3,6 +3,7 @@ package joansanchez.jediapp.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,12 +13,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import joansanchez.jediapp.LoginActivity;
 import joansanchez.jediapp.R;
 
 /**
@@ -36,6 +40,21 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
         texto.setText(text);
     }
     ImageButton butbrow, butphone;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+    String notiactualactual;
+
+    private void notifierror(String noti){
+        editor.putString("lastnoti", noti);
+        editor.apply();
+        switch (notiactualactual){
+            case "toast":
+                Toast.makeText(this.getActivity(), noti, Toast.LENGTH_LONG).show();
+                break;
+
+        }
+    }
+
     private String calcularexpre(String result1, int op, String result2){
         double a, b, c;
         a = Double.valueOf(result1);
@@ -52,7 +71,8 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
                 c = a * b;
                 break;
             case 3:
-                c = a / b;
+                if (b == 0) notifierror(getString(R.string.error_div_0));
+                else c = a / b;
                 break;
         }
         return String.valueOf(c);
@@ -64,9 +84,45 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
         super.onCreate(savedInstanceState);
     }
 
+
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menucalc, menu);
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        switch (id){
+            case R.id.action_call:
+                Intent i =  new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+result1));
+                startActivity(i);
+                break;
+            case R.id.action_browse:
+                Intent i2;
+                if (result != "00") {
+                    i2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.es/search?q=" + result1));
+                    startActivity(i2);
+                }
+                else{
+                    i2 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://lmgtfy.com/?q=qu%C3%A9+hago+en+julio+haciendo+un+curso?" ));
+                    startActivity(i2);
+                }
+                break;
+            case R.id.Notifica_toast:
+                editor.putString("notificacioncal", "toast");
+                editor.apply();
+                break;
+            case R.id.Notifica_estado:
+                editor.putString("notificacioncal", "estado");
+                editor.apply();
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -120,6 +176,9 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
         operand = 4;
         result1 = "0";
         result = "00";
+        sp = this.getActivity().getSharedPreferences("APP", Context.MODE_PRIVATE);
+        editor = sp.edit();
+        notiactualactual = sp.getString("notificacioncal","toast");
 
         setHasOptionsMenu(true);
         return rootView;

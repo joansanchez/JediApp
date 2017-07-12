@@ -12,8 +12,21 @@
         android:title="Browse"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_logout"
+        android:id="@+id/action_notificaciones"
         android:orderInCategory="100"
-        android:title="Logout"
-        app:showAsAction="never" />
+        android:title="Notificaciones"
+        app:showAsAction="never" >
+    <menu>
+        <item
+            android:id="@+id/Notifica_toast"
+            android:orderInCategory="100"
+            android:title="Toast"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/Notifica_estado"
+            android:orderInCategory="100"
+            android:title="Estado"
+            app:showAsAction="ifRoom" />
+    </menu>
+    </item>
 </menu>
