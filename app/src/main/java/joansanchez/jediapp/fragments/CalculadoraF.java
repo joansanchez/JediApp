@@ -1,6 +1,8 @@
 package joansanchez.jediapp.fragments;
 
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import joansanchez.jediapp.DrawerActivity;
 import joansanchez.jediapp.LoginActivity;
 import joansanchez.jediapp.R;
 
@@ -50,6 +55,49 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
         switch (notiactualactual){
             case "toast":
                 Toast.makeText(this.getActivity(), noti, Toast.LENGTH_LONG).show();
+                break;
+            case "estado":
+                //Entero que nos permite identificar la notificación
+                int mId = 1;
+                //Instanciamos Notification Manager
+                NotificationManager mNotificationManager =
+                        (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+                // Para la notificaciones, en lugar de crearlas directamente, lo hacemos mediante
+                // un Builder/contructor.
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(getActivity().getApplicationContext())
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setContentTitle("Calculadora")
+                                .setContentText(noti);
+
+
+                // Creamos un intent explicito, para abrir la app desde nuestra notificación
+                Intent resultIntent = new Intent(getActivity().getApplicationContext(), DrawerActivity.class);
+
+                //El objeto stack builder contiene una pila artificial para la Acitivty empezada.
+                //De esta manera, aseguramos que al navegar hacia atrás
+                //desde la Activity nos lleve a la home screen.
+
+                //Desde donde la creamos
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity().getApplicationContext());
+                // Añade la pila para el Intent,pero no el intent en sí
+                stackBuilder.addParentStack(DrawerActivity.class);
+                // Añadimos el intent que empieza la activity que está en el top de la pila
+                stackBuilder.addNextIntent(resultIntent);
+
+                //El pending intent será el que se ejecute cuando la notificación sea pulsada
+                PendingIntent resultPendingIntent =
+                        stackBuilder.getPendingIntent(
+                                0,
+                                PendingIntent.FLAG_UPDATE_CURRENT
+                        );
+                mBuilder.setContentIntent(resultPendingIntent);
+
+                // mId nos permite actualizar las notificaciones en un futuro
+                // Notificamos
+                mNotificationManager.notify(mId, mBuilder.build());
                 break;
 
         }
@@ -114,10 +162,12 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
             case R.id.Notifica_toast:
                 editor.putString("notificacioncal", "toast");
                 editor.apply();
+                notiactualactual = "toast";
                 break;
             case R.id.Notifica_estado:
                 editor.putString("notificacioncal", "estado");
                 editor.apply();
+                notiactualactual = "estado";
                 break;
 
         }
