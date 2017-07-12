@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_PASS;
+import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_USER;
 
 /**
  * Created by JoanPad on 05/07/2017.
@@ -97,6 +98,32 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
         c.close();
 
         return retvalue;
+    }
+    public long existe(String u){
+        Cursor c;
+        c = readable.query(MyDataBaseContract.Table1.TABLE_NAME,
+                new String[] {COLUMN_USER},
+                MyDataBaseContract.Table1.COLUMN_USER + " = ? ",
+                new String[] {u},
+                null,
+                null,
+                null);
+        long retvalue = -1;
+        if (c.moveToFirst()) {
+            do {
+                Log.v(TAG, "entra");
+                retvalue = 1;
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return retvalue;
+    }
+    public long createRowGoogle(String u) {
+        ContentValues values = new ContentValues();
+        values.put(MyDataBaseContract.Table1.COLUMN_USER,u);
+        long newId = writable.insert(MyDataBaseContract.Table1.TABLE_NAME,null,values);
+        return newId;
     }
 }
 
