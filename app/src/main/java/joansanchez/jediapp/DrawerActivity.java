@@ -47,6 +47,14 @@ public class DrawerActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        Fragment f = null;
+        f = new MainScreen();
+        if(f != null){
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.fragment_container,f);
+            ft.commit();
+        }
     }
 
     @Override
@@ -101,8 +109,6 @@ public class DrawerActivity extends AppCompatActivity
             f = new Juego();
         } else if (id == R.id.nav_ranquing) {
             f = new Ranking();
-        } else if (id == R.id.nav_perfil) {
-            f = new Profile();
         } else if (id == R.id.nav_calculadora) {
             f = new CalculadoraF();
         }

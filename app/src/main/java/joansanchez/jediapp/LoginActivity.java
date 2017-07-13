@@ -117,6 +117,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         i = new Intent(this, DrawerActivity.class);
                         startActivity(i);
                     }
+                    else Toast.makeText(this, "usuario ya en uso", Toast.LENGTH_LONG).show();
                     Log.v(TAG, ""+id);
                 }
                 else Log.v(TAG, "introduce usuario y pass");

@@ -7,7 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_ADRESS;
+import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_BEST;
+import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_CITY;
+import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_NOTI;
 import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_PASS;
+import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_TIPONOTI;
 import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_USER;
 
 /**
@@ -17,14 +22,16 @@ import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_USER
 public class MyDataBaseHelper extends SQLiteOpenHelper{
     private final String TAG = "MyDataBaseHelper";
 
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 8;
     public static final String DATABASE_NAME = "MyDataBase.db";
 
     private static final String SQL_CREATE_TABLE1 =
             "CREATE TABLE " + MyDataBaseContract.Table1.TABLE_NAME + " (" +
                     MyDataBaseContract.Table1._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     MyDataBaseContract.Table1.COLUMN_USER + " TEXT UNIQUE, " + COLUMN_PASS + " TEXT, " +
-                    MyDataBaseContract.Table1.COLUMN_PHOTO + " TEXT, " + MyDataBaseContract.Table1.COLUMN_ADRESS + " TEXT )";
+                    MyDataBaseContract.Table1.COLUMN_PHOTO + " TEXT, " +  MyDataBaseContract.Table1.COLUMN_ADRESS + " TEXT, " + MyDataBaseContract.Table1.COLUMN_TIPONOTI + " TEXT, " +
+                    MyDataBaseContract.Table1.COLUMN_CITY + " TEXT, " + MyDataBaseContract.Table1.COLUMN_BEST + " TEXT, " +
+                    MyDataBaseContract.Table1.COLUMN_NOTI + " TEXT )";
 
     private static final String SQL_DELETE_TABLE1 =
             "DROP TABLE IF EXISTS " + MyDataBaseContract.Table1.TABLE_NAME;
@@ -75,6 +82,13 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(MyDataBaseContract.Table1.COLUMN_USER,u);
         values.put(COLUMN_PASS,p);
+        String aux = "dirección sin determinar";
+        values.put(COLUMN_ADRESS, aux);
+        aux = "ciudad sin determinar";
+        values.put(COLUMN_CITY, aux);
+        values.put(COLUMN_BEST, "sin partidas jugadas");
+        values.put(COLUMN_TIPONOTI, "toast");
+        values.put(COLUMN_NOTI, "sin notificaciones");
         long newId = writable.insert(MyDataBaseContract.Table1.TABLE_NAME,null,values);
         return newId;
     }
@@ -123,8 +137,146 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
     public static long createRowGoogle(String u) {
         ContentValues values = new ContentValues();
         values.put(MyDataBaseContract.Table1.COLUMN_USER,u);
+        String aux = "dirección sin determinar";
+        values.put(COLUMN_ADRESS, aux);
+        aux = "ciudad sin determinar";
+        values.put(COLUMN_CITY, aux);
+        values.put(COLUMN_BEST, "sin partidas jugadas");
+        values.put(COLUMN_TIPONOTI, "toast");
+        values.put(COLUMN_NOTI, "sin notificaciones");
         long newId = writable.insert(MyDataBaseContract.Table1.TABLE_NAME,null,values);
         return newId;
+    }
+
+    public String direccion(String nomuse) {
+        Cursor c;
+        String TAG = "MyDataBaseHelper";
+        c = readable.query(MyDataBaseContract.Table1.TABLE_NAME,
+                new String[] {COLUMN_ADRESS},
+                MyDataBaseContract.Table1.COLUMN_USER + " = ? ",
+                new String[] {nomuse},
+                null,
+                null,
+                null);
+        String retvalue = "nada";
+        if (c.moveToFirst()) {
+            do {
+                Log.v(TAG, "entra");
+                retvalue = c.getString(c.getColumnIndex(MyDataBaseContract.Table1.COLUMN_ADRESS));
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return retvalue;
+    }
+
+    public String ciudad(String nomuse) {
+        Cursor c;
+        String TAG = "MyDataBaseHelper";
+        c = readable.query(MyDataBaseContract.Table1.TABLE_NAME,
+                new String[] {COLUMN_CITY},
+                MyDataBaseContract.Table1.COLUMN_USER + " = ? ",
+                new String[] {nomuse},
+                null,
+                null,
+                null);
+        String retvalue = "nada";
+        if (c.moveToFirst()) {
+            do {
+                Log.v(TAG, "entra");
+                retvalue = c.getString(c.getColumnIndex(MyDataBaseContract.Table1.COLUMN_CITY));
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return retvalue;
+    }
+
+    public String bestpoints(String nomuse) {
+        Cursor c;
+        String TAG = "MyDataBaseHelper";
+        c = readable.query(MyDataBaseContract.Table1.TABLE_NAME,
+                new String[] {COLUMN_BEST},
+                MyDataBaseContract.Table1.COLUMN_USER + " = ? ",
+                new String[] {nomuse},
+                null,
+                null,
+                null);
+        String retvalue = "sin partidas jugadas";
+        if (c.moveToFirst()) {
+            do {
+                Log.v(TAG, "entra");
+                retvalue = c.getString(c.getColumnIndex(MyDataBaseContract.Table1.COLUMN_BEST));
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return retvalue;
+    }
+
+    public String lastnotifi(String nomuse) {
+        Cursor c;
+        String TAG = "MyDataBaseHelper";
+        c = readable.query(MyDataBaseContract.Table1.TABLE_NAME,
+                new String[] {COLUMN_NOTI},
+                MyDataBaseContract.Table1.COLUMN_USER + " = ? ",
+                new String[] {nomuse},
+                null,
+                null,
+                null);
+        String retvalue = "0";
+        if (c.moveToFirst()) {
+            do {
+                Log.v(TAG, "entra");
+                retvalue = c.getString(c.getColumnIndex(MyDataBaseContract.Table1.COLUMN_NOTI));
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return retvalue;
+    }
+
+    public void updatenoti(String noti, String user) {
+        ContentValues values = new ContentValues();
+        values.put(MyDataBaseContract.Table1.COLUMN_NOTI, noti);
+        int rows_afected = readable.update(MyDataBaseContract.Table1.TABLE_NAME,    //Table name
+                values,                                                             //New value for columns
+                MyDataBaseContract.Table1.COLUMN_USER + " LIKE ? ",                 //Selection args
+                new String[] {user});                                                  //Selection values
+
+
+    }
+
+    public String tipodenoti(String user) {
+        Cursor c;
+        String TAG = "MyDataBaseHelper";
+        c = readable.query(MyDataBaseContract.Table1.TABLE_NAME,
+                new String[] {COLUMN_TIPONOTI},
+                MyDataBaseContract.Table1.COLUMN_USER + " = ? ",
+                new String[] {user},
+                null,
+                null,
+                null);
+        String retvalue = "toast";
+        if (c.moveToFirst()) {
+            do {
+                Log.v(TAG, "entra");
+                retvalue = c.getString(c.getColumnIndex(MyDataBaseContract.Table1.COLUMN_TIPONOTI));
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return retvalue;
+    }
+
+    public void updatetiponoti(String tiponot, String user) {
+        ContentValues values = new ContentValues();
+        values.put(MyDataBaseContract.Table1.COLUMN_TIPONOTI, tiponot);
+        int rows_afected = readable.update(MyDataBaseContract.Table1.TABLE_NAME,    //Table name
+                values,                                                             //New value for columns
+                MyDataBaseContract.Table1.COLUMN_USER + " LIKE ? ",                 //Selection args
+                new String[] {user});                                                  //Selection values
+
     }
 }
 

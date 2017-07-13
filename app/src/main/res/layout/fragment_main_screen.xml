@@ -4,10 +4,100 @@
     android:layout_height="match_parent"
     tools:context="joansanchez.jediapp.fragments.MainScreen">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/fotoperfil"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="36dp"
+            android:src="@drawable/imagemin" />
+
+        <TextView
+            android:id="@+id/nombreuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fotoperfil"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
+            android:text="nombre"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/direccionuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nombreuser"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="23dp"
+            android:text="direccion" />
+
+        <TextView
+            android:id="@+id/ciudaduser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ciudad"
+            android:layout_below="@+id/direccionuser"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/mejorpuntutext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Mejor puntuación:"
+            android:layout_below="@+id/ciudaduser"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/bestpuntua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mejorpuntutext"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:text="15"
+            android:textColor="@android:color/black"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/lastnotitext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bestpuntua"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Última notificación:" />
+
+        <TextView
+            android:id="@+id/lastnoti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lastnotitext"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="21dp"
+            android:text="noti de prueva"
+            android:textSize="25sp"
+            android:textColor="@android:color/black"/>
+
+        <Button
+            android:id="@+id/editprof"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_toEndOf="@+id/nombreuser"
+            android:layout_toRightOf="@+id/nombreuser"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:text="Editar perfil" />
+
+
+    </RelativeLayout>
 
 </FrameLayout>

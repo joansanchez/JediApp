@@ -28,6 +28,7 @@ import android.widget.Toast;
 import joansanchez.jediapp.DrawerActivity;
 import joansanchez.jediapp.LoginActivity;
 import joansanchez.jediapp.R;
+import joansanchez.jediapp.database.MyDataBaseHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,10 +49,12 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
     SharedPreferences sp;
     SharedPreferences.Editor editor;
     String notiactualactual;
+    private MyDataBaseHelper myDataBaseHelper;
+    String user;
 
     private void notifierror(String noti){
-        editor.putString("lastnoti", noti);
-        editor.apply();
+
+        myDataBaseHelper.updatenoti(noti, user);
         switch (notiactualactual){
             case "toast":
                 Toast.makeText(this.getActivity(), noti, Toast.LENGTH_LONG).show();
@@ -130,6 +133,7 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myDataBaseHelper = MyDataBaseHelper.getInstance(getActivity());
     }
 
 
@@ -160,13 +164,11 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
                 }
                 break;
             case R.id.Notifica_toast:
-                editor.putString("notificacioncal", "toast");
-                editor.apply();
+                myDataBaseHelper.updatetiponoti("toast", user);
                 notiactualactual = "toast";
                 break;
             case R.id.Notifica_estado:
-                editor.putString("notificacioncal", "estado");
-                editor.apply();
+                myDataBaseHelper.updatetiponoti("estado", user);
                 notiactualactual = "estado";
                 break;
 
@@ -228,7 +230,8 @@ public class CalculadoraF extends Fragment implements View.OnClickListener{
         result = "00";
         sp = this.getActivity().getSharedPreferences("APP", Context.MODE_PRIVATE);
         editor = sp.edit();
-        notiactualactual = sp.getString("notificacioncal","toast");
+        user = sp.getString("currentUser","no name");
+        notiactualactual = myDataBaseHelper.tipodenoti(user);
 
         setHasOptionsMenu(true);
         return rootView;

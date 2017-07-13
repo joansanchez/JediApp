@@ -20,6 +20,12 @@ public final class MyDataBaseContract {
         public static final String COLUMN_PASS = "contrasenya";
         public static final String COLUMN_PHOTO = "foto";
         public static final String COLUMN_ADRESS = "direccion";
+        public static final String COLUMN_CITY = "ciudad";
+        public static final String COLUMN_BEST = "bestpoints";
+        public static final String COLUMN_TIPONOTI = "tiponoti";
+        public static final String COLUMN_NOTI = "lastnoti";
+
+
 
     }
 }
