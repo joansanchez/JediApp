@@ -12,6 +12,7 @@ import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_BEST
 import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_CITY;
 import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_NOTI;
 import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_PASS;
+import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_PHOTO;
 import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_TIPONOTI;
 import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_USER;
 
@@ -87,6 +88,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
         aux = "ciudad sin determinar";
         values.put(COLUMN_CITY, aux);
         values.put(COLUMN_BEST, "sin partidas jugadas");
+        values.put(COLUMN_PHOTO, "no photo");
         values.put(COLUMN_TIPONOTI, "toast");
         values.put(COLUMN_NOTI, "sin notificaciones");
         long newId = writable.insert(MyDataBaseContract.Table1.TABLE_NAME,null,values);
@@ -142,6 +144,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
         aux = "ciudad sin determinar";
         values.put(COLUMN_CITY, aux);
         values.put(COLUMN_BEST, "sin partidas jugadas");
+        values.put(COLUMN_PHOTO, "no photo");
         values.put(COLUMN_TIPONOTI, "toast");
         values.put(COLUMN_NOTI, "sin notificaciones");
         long newId = writable.insert(MyDataBaseContract.Table1.TABLE_NAME,null,values);
@@ -268,6 +271,28 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
 
         return retvalue;
     }
+    public String getphoto(String nomuser){
+        Cursor c;
+        String TAG = "MyDataBaseHelper";
+        c = readable.query(MyDataBaseContract.Table1.TABLE_NAME,
+                new String[] {COLUMN_PHOTO},
+                MyDataBaseContract.Table1.COLUMN_USER + " = ? ",
+                new String[] {nomuser},
+                null,
+                null,
+                null);
+        String retvalue = "no photo";
+        if (c.moveToFirst()) {
+            do {
+                Log.v(TAG, "entra");
+                retvalue = c.getString(c.getColumnIndex(MyDataBaseContract.Table1.COLUMN_PHOTO));
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return retvalue;
+    }
+
 
     public void updatetiponoti(String tiponot, String user) {
         ContentValues values = new ContentValues();
@@ -277,6 +302,33 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
                 MyDataBaseContract.Table1.COLUMN_USER + " LIKE ? ",                 //Selection args
                 new String[] {user});                                                  //Selection values
 
+    }
+
+    public void updatedireccion(String nomuse, String d) {
+        ContentValues values = new ContentValues();
+        values.put(MyDataBaseContract.Table1.COLUMN_ADRESS, d);
+        int rows_afected = readable.update(MyDataBaseContract.Table1.TABLE_NAME,    //Table name
+                values,                                                             //New value for columns
+                MyDataBaseContract.Table1.COLUMN_USER + " LIKE ? ",                 //Selection args
+                new String[] {nomuse});
+    }
+
+    public void updatecity(String nomuse, String c) {
+        ContentValues values = new ContentValues();
+        values.put(MyDataBaseContract.Table1.COLUMN_CITY, c);
+        int rows_afected = readable.update(MyDataBaseContract.Table1.TABLE_NAME,    //Table name
+                values,                                                             //New value for columns
+                MyDataBaseContract.Table1.COLUMN_USER + " LIKE ? ",                 //Selection args
+                new String[] {nomuse});
+    }
+
+    public void updatephoto(String nomuse, String url){
+        ContentValues values = new ContentValues();
+        values.put(MyDataBaseContract.Table1.COLUMN_PHOTO, url);
+        int rows_afected = readable.update(MyDataBaseContract.Table1.TABLE_NAME,    //Table name
+                values,                                                             //New value for columns
+                MyDataBaseContract.Table1.COLUMN_USER + " LIKE ? ",                 //Selection args
+                new String[] {nomuse});
     }
 }
 
