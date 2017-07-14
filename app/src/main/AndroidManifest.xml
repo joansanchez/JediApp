@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="joansanchez.jediapp">
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_physics"
@@ -25,10 +27,14 @@
         <activity
             android:name=".DrawerActivity"
             android:configChanges="screenSize|orientation"
-            android:theme="@style/AppTheme.noactionbar"
-            />
+            android:theme="@style/AppTheme.noactionbar" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".fragments.ErrorActivity"></activity>
+        <activity android:name=".fragments.ErrorActivity" />
+
+        <service
+            android:name=".MusicPlayer"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
