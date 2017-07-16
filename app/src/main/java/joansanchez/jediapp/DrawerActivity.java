@@ -3,6 +3,7 @@ package joansanchez.jediapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -106,6 +107,7 @@ public class DrawerActivity extends AppCompatActivity
         if (id == R.id.nav_MainScreen) {
             f = new MainScreen();
         } else if (id == R.id.nav_juego) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
             f = new Juego();
         } else if (id == R.id.nav_ranquing) {
             f = new Ranking();

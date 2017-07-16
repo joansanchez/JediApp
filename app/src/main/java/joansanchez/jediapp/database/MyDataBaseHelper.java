@@ -292,6 +292,27 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
 
         return retvalue;
     }
+    public String getpoints(String nomuser){
+        Cursor c;
+        String TAG = "MyDataBaseHelper";
+        c = readable.query(MyDataBaseContract.Table1.TABLE_NAME,
+                new String[] {COLUMN_BEST},
+                MyDataBaseContract.Table1.COLUMN_USER + " = ? ",
+                new String[] {nomuser},
+                null,
+                null,
+                null);
+        String retvalue = "no games";
+        if (c.moveToFirst()) {
+            do {
+                Log.v(TAG, "entra");
+                retvalue = c.getString(c.getColumnIndex(MyDataBaseContract.Table1.COLUMN_BEST));
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return retvalue;
+    }
 
 
     public void updatetiponoti(String tiponot, String user) {
@@ -325,6 +346,14 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
     public void updatephoto(String nomuse, String url){
         ContentValues values = new ContentValues();
         values.put(MyDataBaseContract.Table1.COLUMN_PHOTO, url);
+        int rows_afected = readable.update(MyDataBaseContract.Table1.TABLE_NAME,    //Table name
+                values,                                                             //New value for columns
+                MyDataBaseContract.Table1.COLUMN_USER + " LIKE ? ",                 //Selection args
+                new String[] {nomuse});
+    }
+    public void updatepoints (String nomuse, String points){
+        ContentValues values = new ContentValues();
+        values.put(MyDataBaseContract.Table1.COLUMN_BEST, points);
         int rows_afected = readable.update(MyDataBaseContract.Table1.TABLE_NAME,    //Table name
                 values,                                                             //New value for columns
                 MyDataBaseContract.Table1.COLUMN_USER + " LIKE ? ",                 //Selection args

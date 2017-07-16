@@ -12,99 +12,167 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/intentosjugador"/>
+            android:id="@+id/intentosjugador"
+            android:textAlignment="textEnd"
+            android:textSize="70dp"
+            android:layout_gravity="right"/>
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
             android:stretchColumns="*">
             <TableRow android:layout_weight="1">
-                <ImageView android:layout_width="match_parent"
+                <LinearLayout android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im11"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im11"
-                    android:src="@drawable/ic_watermelon"/>
-                <ImageView android:layout_width="match_parent"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im21"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im21"
-                    android:src="@drawable/ic_watermelon"/>
-                <ImageView android:layout_width="match_parent"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im31"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im31"
-                    android:src="@drawable/ic_watermelon"/>
-                <ImageView android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im41"
-                    android:src="@drawable/ic_watermelon"/>
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im41"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
             </TableRow>
             <TableRow android:layout_weight="1">
-                <ImageView android:layout_width="match_parent"
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im12"
-                    android:src="@drawable/ic_watermelon"/>
-                <ImageView android:layout_width="match_parent"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im12"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im22"
-                    android:src="@drawable/ic_watermelon"/>
-                <ImageView android:layout_width="match_parent"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im22"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im32"
-                    android:src="@drawable/ic_watermelon"/>
-                <ImageView android:layout_width="match_parent"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im32"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im42"
-                    android:src="@drawable/ic_watermelon"/>
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im42"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
             </TableRow>
             <TableRow android:layout_weight="1">
-                <ImageView android:layout_width="match_parent"
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im13"
-                    android:src="@drawable/ic_watermelon"/>
-                <ImageView android:layout_width="match_parent"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im13"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im23"
-                    android:src="@drawable/ic_watermelon"/>
-                <ImageView android:layout_width="match_parent"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im23"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im33"
-                    android:src="@drawable/ic_watermelon"/>
-                <ImageView android:layout_width="match_parent"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im33"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im43"
-                    android:src="@drawable/ic_watermelon"/>
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im43"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
             </TableRow>
             <TableRow android:layout_weight="1">
-                <ImageView android:layout_width="match_parent"
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im14"
-                    android:src="@drawable/ic_watermelon"/>
-                <ImageView android:layout_width="match_parent"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im14"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im24"
-                    android:src="@drawable/ic_watermelon"/>
-                <ImageView android:layout_width="match_parent"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im24"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im34"
-                    android:src="@drawable/ic_watermelon"/>
-                <ImageView android:layout_width="match_parent"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im34"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/im44"
-                    android:src="@drawable/ic_watermelon"/>
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/im44"
+                        android:src="@drawable/ic_watermelon" />
+                </LinearLayout>
+
             </TableRow>
         </TableLayout>
 
