@@ -1,1 +1,2 @@
-include ':app'
+include ':app', ':flipperim'
+project(':flipperim').projectDir = new File('flipper')
