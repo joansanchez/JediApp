@@ -452,11 +452,13 @@ public class Juego extends Fragment implements View.OnClickListener {
 
     private void findepartida() {
         Log.v(TAG, "findepartida");
+        String show = "partida finalizada. Puntuación "+ contadorint;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("partida finalizada. Puntuación "+contadorint)
+        builder.setMessage(show)
                 .setTitle("Memory");
         AlertDialog dialog = builder.create();
         dialog.show();
+        myDataBaseHelper.updatenoti(show, nomuse);
 
         String aux = myDataBaseHelper.getpoints(nomuse);
         Log.v(TAG, aux);
