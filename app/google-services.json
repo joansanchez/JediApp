@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "440040545763",
+    "firebase_url": "https://jediapp-39948.firebaseio.com",
+    "project_id": "jediapp-39948",
+    "storage_bucket": "jediapp-39948.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440040545763:android:a1641fbc6fcaeb04",
+        "android_client_info": {
+          "package_name": "joansanchez.jediapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440040545763-ga8d6r6iplat117kbms9fdh183ln02ak.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "joansanchez.jediapp",
+            "certificate_hash": "34e594a4dc49604221a0f542a3e5afc5b2c90e26"
+          }
+        },
+        {
+          "client_id": "440040545763-q0e1p5fj0958buvn81gi44k4535r6p0o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKK6X-pLmk-3_PB-Vy_t8Nvdl3n82-Fvs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440040545763-q0e1p5fj0958buvn81gi44k4535r6p0o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
