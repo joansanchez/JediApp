@@ -23,9 +23,7 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.Adapte
         this.contactos = contacts;
     }
 
-    public interface OnIconTouched {
-        void meHanPulsado(int position, Contact contactoPulsado);
-    }
+
 
     @Override
     public MyCustomAdapter.AdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -54,22 +52,6 @@ public class MyCustomAdapter extends RecyclerView.Adapter<MyCustomAdapter.Adapte
         }
         adapterViewholder.name.setText(contactoAMostrar.getName());
         adapterViewholder.phone.setText(contactoAMostrar.getPhone());
-        adapterViewholder.phone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contactos.remove(position);
-                notifyItemRemoved(position);
-//                notifyDataSetChanged();
-            }
-        });
-
-        adapterViewholder.icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"HAN PULSADO EL ICONO", Toast.LENGTH_SHORT).show();
-                ((OnIconTouched) context).meHanPulsado(position, contactoAMostrar);
-            }
-        });
 
     }
 

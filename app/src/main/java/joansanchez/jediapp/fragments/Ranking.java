@@ -80,9 +80,6 @@ public class Ranking extends Fragment {
     }
 
 
-    public void meHanPulsado(int position, Contact contactoPulsado) {
-        Toast.makeText(this.getActivity(), contactoPulsado.getName(), Toast.LENGTH_LONG).show();
-    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
