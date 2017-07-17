@@ -111,6 +111,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 if (u.length() != 0 && p.length() != 0){
                     long id = myDataBaseHelper.createRow(u, p);
+                    long id2 = myDataBaseHelper.insertarpuntuacion(u, "no games");
                     if (id != -1) {
                         editor.putString("currentUser", u);
                         editor.apply();
@@ -127,6 +128,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 p = pass.getText().toString();
                 if (u.length() != 0 && p.length() != 0){
                     long id = myDataBaseHelper.query(u, p);
+                    long id2 = myDataBaseHelper.insertarpuntuacion(u, "no games");
                     if (id != -1) {
                         editor.putString("currentUser", u);
                         editor.apply();
@@ -176,6 +178,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
             else{
                 long id = MyDataBaseHelper.createRowGoogle(user);
+                long id2 = myDataBaseHelper.insertarpuntuacion(u, "no games");
                 if (id != -1) {
                     editor.putString("currentUser", user);
                     editor.apply();

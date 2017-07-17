@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.List;
+
+import joansanchez.jediapp.Contact;
+
 import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_ADRESS;
 import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_BEST;
 import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_CITY;
@@ -23,19 +27,27 @@ import static joansanchez.jediapp.database.MyDataBaseContract.Table1.COLUMN_USER
 public class MyDataBaseHelper extends SQLiteOpenHelper{
     private final String TAG = "MyDataBaseHelper";
 
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 9;
     public static final String DATABASE_NAME = "MyDataBase.db";
 
     private static final String SQL_CREATE_TABLE1 =
             "CREATE TABLE " + MyDataBaseContract.Table1.TABLE_NAME + " (" +
                     MyDataBaseContract.Table1._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    MyDataBaseContract.Table1.COLUMN_USER + " TEXT UNIQUE, " + COLUMN_PASS + " TEXT, " +
+                    MyDataBaseContract.Table1.COLUMN_USER + " TEXT UNIQUE, " + MyDataBaseContract.Table1.COLUMN_PASS + " TEXT, " +
                     MyDataBaseContract.Table1.COLUMN_PHOTO + " TEXT, " +  MyDataBaseContract.Table1.COLUMN_ADRESS + " TEXT, " + MyDataBaseContract.Table1.COLUMN_TIPONOTI + " TEXT, " +
                     MyDataBaseContract.Table1.COLUMN_CITY + " TEXT, " + MyDataBaseContract.Table1.COLUMN_BEST + " TEXT, " +
                     MyDataBaseContract.Table1.COLUMN_NOTI + " TEXT )";
 
+    private static final String SQL_CREATE_TABLE2 =
+            "CREATE TABLE " + MyDataBaseContract.Table2.TABLE_NAME1 + " (" +
+                    MyDataBaseContract.Table2._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    MyDataBaseContract.Table2.COLUMN_USER1 + " TEXT, "  + MyDataBaseContract.Table2.COLUMN_BEST1 + " TEXT )";
+
     private static final String SQL_DELETE_TABLE1 =
             "DROP TABLE IF EXISTS " + MyDataBaseContract.Table1.TABLE_NAME;
+
+    private static final String SQL_DELETE_TABLE2 =
+            "DROP TABLE IF EXISTS " + MyDataBaseContract.Table2.TABLE_NAME1;
 
     private static MyDataBaseHelper instance;
     private static SQLiteDatabase writable;
@@ -59,11 +71,13 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_TABLE1);
+        db.execSQL(SQL_CREATE_TABLE2);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_TABLE1);
+        db.execSQL(SQL_DELETE_TABLE2);
         onCreate(db);
     }
 
@@ -82,16 +96,24 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
     public long createRow(String u, String p) {
         ContentValues values = new ContentValues();
         values.put(MyDataBaseContract.Table1.COLUMN_USER,u);
-        values.put(COLUMN_PASS,p);
+        values.put(MyDataBaseContract.Table1.COLUMN_PASS,p);
         String aux = "dirección sin determinar";
-        values.put(COLUMN_ADRESS, aux);
+        values.put(MyDataBaseContract.Table1.COLUMN_ADRESS, aux);
         aux = "ciudad sin determinar";
-        values.put(COLUMN_CITY, aux);
-        values.put(COLUMN_BEST, "sin partidas jugadas");
-        values.put(COLUMN_PHOTO, "no photo");
-        values.put(COLUMN_TIPONOTI, "toast");
-        values.put(COLUMN_NOTI, "sin notificaciones");
+        values.put(MyDataBaseContract.Table1.COLUMN_CITY, aux);
+        values.put(MyDataBaseContract.Table1.COLUMN_BEST, "no games");
+        values.put(MyDataBaseContract.Table1.COLUMN_PHOTO, "no photo");
+        values.put(MyDataBaseContract.Table1.COLUMN_TIPONOTI, "toast");
+        values.put(MyDataBaseContract.Table1.COLUMN_NOTI, "sin notificaciones");
         long newId = writable.insert(MyDataBaseContract.Table1.TABLE_NAME,null,values);
+        return newId;
+    }
+
+    public long insertarpuntuacion(String u, String points) {
+        ContentValues values = new ContentValues();
+        values.put(MyDataBaseContract.Table2.COLUMN_USER1,u);
+        values.put(MyDataBaseContract.Table2.COLUMN_BEST1, points);
+        long newId = writable.insert(MyDataBaseContract.Table2.TABLE_NAME1,null,values);
         return newId;
     }
 
@@ -99,7 +121,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
         Cursor c;
         c = readable.query(MyDataBaseContract.Table1.TABLE_NAME,
                 new String[] {COLUMN_PASS},
-                MyDataBaseContract.Table1.COLUMN_USER + " = ? AND " + COLUMN_PASS + " = ?",
+                MyDataBaseContract.Table1.COLUMN_USER + " = ? AND " + MyDataBaseContract.Table1.COLUMN_PASS + " = ?",
                 new String[] {u, p},
                 null,
                 null,
@@ -140,13 +162,13 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(MyDataBaseContract.Table1.COLUMN_USER,u);
         String aux = "dirección sin determinar";
-        values.put(COLUMN_ADRESS, aux);
+        values.put(MyDataBaseContract.Table1.COLUMN_ADRESS, aux);
         aux = "ciudad sin determinar";
-        values.put(COLUMN_CITY, aux);
-        values.put(COLUMN_BEST, "sin partidas jugadas");
-        values.put(COLUMN_PHOTO, "no photo");
-        values.put(COLUMN_TIPONOTI, "toast");
-        values.put(COLUMN_NOTI, "sin notificaciones");
+        values.put(MyDataBaseContract.Table1.COLUMN_CITY, aux);
+        values.put(MyDataBaseContract.Table1.COLUMN_BEST, "no games");
+        values.put(MyDataBaseContract.Table1.COLUMN_PHOTO, "no photo");
+        values.put(MyDataBaseContract.Table1.COLUMN_TIPONOTI, "toast");
+        values.put(MyDataBaseContract.Table1.COLUMN_NOTI, "sin notificaciones");
         long newId = writable.insert(MyDataBaseContract.Table1.TABLE_NAME,null,values);
         return newId;
     }
@@ -313,6 +335,27 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
 
         return retvalue;
     }
+    public String getpointst2(String nomuser){
+        Cursor c;
+        String TAG = "MyDataBaseHelper";
+        c = readable.query(MyDataBaseContract.Table2.TABLE_NAME1,
+                new String[] {MyDataBaseContract.Table2.COLUMN_BEST1},
+                MyDataBaseContract.Table2.COLUMN_USER1 + " = ? ",
+                new String[] {nomuser},
+                null,
+                null,
+                null);
+        String retvalue = "no users";
+        if (c.moveToFirst()) {
+            do {
+                Log.v(TAG, "entra");
+                retvalue = c.getString(c.getColumnIndex(MyDataBaseContract.Table2.COLUMN_BEST1));
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return retvalue;
+    }
 
 
     public void updatetiponoti(String tiponot, String user) {
@@ -358,6 +401,47 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
                 values,                                                             //New value for columns
                 MyDataBaseContract.Table1.COLUMN_USER + " LIKE ? ",                 //Selection args
                 new String[] {nomuse});
+    }
+    public void updatepointst2 (String nomuse, String points){
+        ContentValues values = new ContentValues();
+        values.put(MyDataBaseContract.Table2.COLUMN_BEST1, points);
+        int rows_afected = readable.update(MyDataBaseContract.Table2.TABLE_NAME1,    //Table name
+                values,                                                             //New value for columns
+                MyDataBaseContract.Table2.COLUMN_USER1 + " LIKE ? ",                 //Selection args
+                new String[] {nomuse});
+    }
+
+
+    public List<Contact> getpuntuaciones(List<Contact> contactos) {
+        Cursor c;
+        String TAG = "MyDataBaseHelper";
+        c = readable.query(MyDataBaseContract.Table2.TABLE_NAME1,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+        String retvalue = "no games";
+        Log.v(TAG, "llega hasta aquí");
+        if (c.moveToFirst()) {
+            do {
+                Log.v(TAG, "entra");
+                String name = c.getString(c.getColumnIndex(MyDataBaseContract.Table2.COLUMN_USER1));
+                Log.v(TAG, name);
+                retvalue = c.getString(c.getColumnIndex(MyDataBaseContract.Table2.COLUMN_BEST1));
+                Log.v(TAG, retvalue);
+                if(!retvalue.equals("no games"))contactos.add(new Contact(0, name, retvalue));
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return contactos;
+    }
+
+    public void deletetable() {
+        writable.execSQL(SQL_DELETE_TABLE2);
+        writable.execSQL(SQL_CREATE_TABLE2);
     }
 }
 

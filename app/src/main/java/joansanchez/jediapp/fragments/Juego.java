@@ -448,23 +448,6 @@ public class Juego extends Fragment implements View.OnClickListener {
 
            }
        }
-       /* Drawable car1 = getResources().getDrawable(rutaimagen[0]);
-                   Drawable car2 = getResources().getDrawable(cartabase);
-
-
-                   imavi1 = im11;
-                   imavi2 = im12;
-
-                   if (imavi1.getTag().toString().equals(imavi2.getTag().toString()))
-                       Log.v(TAG, "igualessss");
-                   Drawable car2 = getResources().getDrawable(cartabase);
-                   if (isBurger)
-                       flipper.flipImage(car1, ((ImageView) view));
-                   else
-                       flipper.flipImage(car2, ((ImageView) view));
-
-                   isBurger = !isBurger;*/
-
     }
 
     private void findepartida() {
@@ -474,11 +457,25 @@ public class Juego extends Fragment implements View.OnClickListener {
                 .setTitle("Memory");
         AlertDialog dialog = builder.create();
         dialog.show();
+
         String aux = myDataBaseHelper.getpoints(nomuse);
-        if (aux != "no games"){
+        Log.v(TAG, aux);
+        if (aux.equals("no games")){
+            myDataBaseHelper.updatepoints(nomuse, String.valueOf(contadorint));
+        }
+        else {
             if (Integer.valueOf(aux) > contadorint) myDataBaseHelper.updatepoints(nomuse, String.valueOf(contadorint));
         }
-        else myDataBaseHelper.updatepoints(nomuse, String.valueOf(contadorint));
+        String aux2 = myDataBaseHelper.getpointst2(nomuse);
+        if (aux2.equals("no games")){
+            myDataBaseHelper.updatepointst2(nomuse, String.valueOf(contadorint));
+        }
+        else if (aux2.equals("no users")){
+            long id2 = myDataBaseHelper.insertarpuntuacion(nomuse,String.valueOf(contadorint));
+        }
+        else {
+            if (Integer.valueOf(aux) > contadorint) myDataBaseHelper.updatepointst2(nomuse, String.valueOf(contadorint));
+        }
         bloqueo = true;
 
         Fragment f = new Juego();
